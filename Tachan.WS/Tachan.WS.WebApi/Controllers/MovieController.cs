@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Configuration;
 using System.Web.Http;
+using Newtonsoft.Json;
 using Tachan.WS.Tools;
 
 namespace Tachan.WS.WebApi.Controllers
@@ -15,27 +16,19 @@ namespace Tachan.WS.WebApi.Controllers
         [Route("movie/name/{movieName}")]
         public IHttpActionResult GetMovieByName(string movieName)
         {
-            string result = Client.CreateClient()
-                .SetUri(WebConfigurationManager.AppSettings["OMDBURI"])
-                .SetMimeType("application/json")
-                .Get<string>(CreateQueryName("s", movieName))
-                .Result;
-            
-            return Ok(result);
+            string uri = string.Format(CultureInfo.InvariantCulture,
+                $"{WebConfigurationManager.AppSettings["OMDBURI"]}{CreateQueryName("s", movieName)}");
+
+            return Json(JsonConvert.DeserializeObject(Client.WebGet(uri)));
         }
 
         [Route("movie/id/{id}")]
         public IHttpActionResult GetMovieByID(string id)
         {
-            string result = Client.CreateClient()
-                .SetUri(WebConfigurationManager.AppSettings["OMDBURI"])
-                .SetMimeType("application/json")
-                .Get<string>(CreateQueryName("i", id))
-                .Result;
+            string uri = string.Format(CultureInfo.InvariantCulture,
+                $"{WebConfigurationManager.AppSettings["OMDBURI"]}{CreateQueryName("i", id)}");
 
-            return Ok(result);
-
-            return Ok();
+            return Json(JsonConvert.DeserializeObject(Client.WebGet(uri)));
         }
 
         private string CreateQueryName(string type, string movieName)

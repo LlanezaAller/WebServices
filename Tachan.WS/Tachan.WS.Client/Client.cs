@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -7,7 +9,7 @@ namespace Tachan.WS.Tools
 {
     public static class Client
     {
-        public static async Task<T> Get<T>(this HttpClient client, string uri)
+        public static async Task<T> HttpGet<T>(this HttpClient client, string uri)
         {
             T result = default(T);
 
@@ -19,6 +21,19 @@ namespace Tachan.WS.Tools
             }
 
             return result;
+        }
+
+        public static string WebGet(string uri)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
         }
 
         public static HttpClient CreateClient()
