@@ -3,11 +3,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace WebService.Client
+namespace Tachan.WS.Tools
 {
     public static class Client
     {
-        private static async Task<T> Get<T>(this HttpClient client, string uri)
+        public static async Task<T> Get<T>(this HttpClient client, string uri)
         {
             T result = default(T);
 

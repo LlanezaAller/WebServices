@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace Tachan_WS
+namespace Tachan.WS.WebApi
 {
     public static class WebApiConfig
     {
@@ -15,7 +15,7 @@ namespace Tachan_WS
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "MovieApi",
+                name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );

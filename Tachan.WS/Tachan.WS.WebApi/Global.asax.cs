@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Routing;
 
-namespace Tachan_WS
+namespace Tachan.WS.WebApi
 {
     public class WebApiApplication : System.Web.HttpApplication
     {

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general sobre un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie los valores de estos atributos para modificar la información
 // asociada a un ensamblado.
-[assembly: AssemblyTitle("Tachan_WS")]
+[assembly: AssemblyTitle("Tachan.WS.WebApi")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Tachan_WS")]
+[assembly: AssemblyProduct("Tachan.WS.WebApi")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID es para el Id. typelib cuando este proyecto esté expuesto a COM
-[assembly: Guid("414314a9-c7d3-4d77-92e1-bfe815172812")]
+[assembly: Guid("bdfc580e-6fdc-495d-8a7a-1083bb5bd1eb")]
 
 // La información de versión de un ensamblado consta de los siguientes cuatro valores:
 //
