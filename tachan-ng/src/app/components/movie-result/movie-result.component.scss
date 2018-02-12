@@ -1,0 +1,48 @@
+@import '../../shared';
+.movie {
+    cursor: pointer;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px black;
+    max-height: 400px;
+    overflow: hidden;
+    padding: 15px 10px;
+    position: relative;
+    width: 300px;
+    transition: all 0.25s ease-in-out;
+    &__poster {
+        width: 100%;
+        z-index: 0;
+    }
+    &__header {
+        bottom: 10px;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        z-index: 2;
+    }
+    &__header-title {
+        color: $c-white;
+        font-size: 26px;
+        font-weight: 600;
+        text-shadow: 0 2px 5px black;
+    }
+    &__header-year {
+        color: $c-white;
+        font-size: 20px;
+        font-weight: 400;
+        text-shadow: 0 2px 5px black;
+    }
+    &:after {
+        background: linear-gradient(180deg, transparent, transparentize($c-grey-dark, 0.2));
+        content: '';
+        display: block;
+        height: 100%;
+        margin: -10px;
+        position: absolute;
+        width: 100%;
+    }
+    &:hover {
+        transform: scale(1.1);
+        z-index: 1000;
+    }
+}

@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
+@import 'app/shared';
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button,
+input,
+textarea,
+span {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+body {
+    background: $c-dark-blue;
+}

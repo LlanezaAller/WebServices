@@ -1,0 +1,6 @@
+<main class="page-main">
+    <tcn-search-input (userInput)="doSearch($event)"></tcn-search-input>
+    <section class="search-results">
+        <tcn-movie-result *ngFor="let movie of movies$ | async" [movie]="movie"></tcn-movie-result>
+    </section>
+</main>
