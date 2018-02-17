@@ -2,13 +2,13 @@ module.exports = (app) => {
     const util = require('./_router.util');
     const service = require('../business/verification.service')(app);
     const rootPublic = '/verification';
-    const rootSecured = `/secured${rootPublic}`;
+    const rootSecured = `/secure${rootPublic}`;
 
     const router = {
         find: (req, res) => {
             const movieId = req.params.movieId
             service
-                .find(req.params.id)
+                .find(movieId)
                 .then((response) => res.send(response))
                 .catch((err) => util.sendError(res, 400, err));
 
@@ -39,7 +39,7 @@ module.exports = (app) => {
 
     console.log(`Verification endpoint init successfully at [${rootPublic}, ${rootSecured}]`)
     app.get(`${rootPublic}/:movieId`, router.find);
-    app.put(`${rootPublic}/:objectId`, router.update);
-    app.post(`${rootPublic}`, router.save);
-    app.delete(`${rootPublic}/:objectId`, router.remove);
+    app.put(`${rootSecured}/:objectId`, router.update);
+    app.post(`${rootSecured}`, router.save);
+    app.delete(`${rootSecured}/:objectId`, router.remove);
 }
