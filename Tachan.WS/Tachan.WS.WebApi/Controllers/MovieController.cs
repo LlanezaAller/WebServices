@@ -16,17 +16,19 @@ namespace Tachan.WS.WebApi.Controllers
         [Route("movie/name/{movieName}")]
         public IHttpActionResult GetMovieByName(string movieName)
         {
-            string uri = string.Format(CultureInfo.InvariantCulture,
-                $"{WebConfigurationManager.AppSettings["OMDBURI"]}{CreateQueryName("s", movieName)}");
-
-            return Json(JsonConvert.DeserializeObject(Client.WebGet(uri)));
+            return GenerateOMDBRequests(movieName, "s");
         }
 
         [Route("movie/id/{id}")]
         public IHttpActionResult GetMovieByID(string id)
         {
+            return GenerateOMDBRequests(id, "i");
+        }
+
+        private IHttpActionResult GenerateOMDBRequests(string id, string type)
+        {
             string uri = string.Format(CultureInfo.InvariantCulture,
-                $"{WebConfigurationManager.AppSettings["OMDBURI"]}{CreateQueryName("i", id)}");
+                $"{WebConfigurationManager.AppSettings["OMDBURI"]}{CreateQueryName(type, id)}");
 
             return Json(JsonConvert.DeserializeObject(Client.WebGet(uri)));
         }

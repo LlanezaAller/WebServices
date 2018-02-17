@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -9,6 +10,13 @@ namespace Tachan.WS.Tools
 {
     public static class Client
     {
+        #region Methods
+
+        public static HttpClient CreateClient()
+        {
+            return new HttpClient();
+        }
+
         public static async Task<T> HttpGet<T>(this HttpClient client, string uri)
         {
             T result = default(T);
@@ -21,6 +29,39 @@ namespace Tachan.WS.Tools
             }
 
             return result;
+        }
+
+        public static async Task<T> HttpPost<T>(this HttpClient client, string uri, NameValueCollection parameters)
+        {
+            T result = default(T);
+
+            HttpResponseMessage response = await client.PostAsJsonAsync(uri, parameters);
+
+            if (response.IsSuccessStatusCode)
+            {
+                result = await response.Content.ReadAsAsync<T>();
+            }
+
+            return result;
+        }
+
+        public static HttpClient SetMimeType(this HttpClient client, string mime)
+        {
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mime));
+            return client;
+        }
+
+        public static HttpClient AddAuthorizationHeader(this HttpClient client, string type, string token)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(type, token);
+            return client;
+        }
+
+        public static HttpClient SetUri(this HttpClient client, string uri)
+        {
+            client.BaseAddress = new Uri(uri);
+            return client;
         }
 
         public static string WebGet(string uri)
@@ -36,22 +77,6 @@ namespace Tachan.WS.Tools
             }
         }
 
-        public static HttpClient CreateClient()
-        {
-            return new HttpClient();
-        }
-
-        public static HttpClient SetUri(this HttpClient client, string uri)
-        {
-            client.BaseAddress = new Uri(uri);
-            return client;
-        }
-
-        public static HttpClient SetMimeType(this HttpClient client, string mime)
-        {
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mime));
-            return client;
-        }
+        #endregion Methods
     }
 }
