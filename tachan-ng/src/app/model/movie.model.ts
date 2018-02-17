@@ -5,7 +5,6 @@ export interface Movie {
     type: string;
     poster: string;
 }
-
 export const MOVIES_MOCK: Movie[] = [
     {
         'title': 'Indiana Jones and the Last Crusade',

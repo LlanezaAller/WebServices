@@ -3,11 +3,11 @@ module.exports = (app) => {
     const soundtrackRepository = require('../repository/soundtrack.repository')(app);
 
     return {
-        searchMovieSoundtrack(title) {
-            return movieRepository.searchByTitle(title)
+        searchMovies(title) {
+            return movieRepository.findByTitle(title);
         },
-        findMovieSoundtrack(title) {
-            return Promise.all(movieRepository.searchByTitle(title), soundtrackRepository.findSoundtrack(title)).then((responses) => {
+        getMovie(movieId, title) {
+            return Promise.all(movieRepository.findById(movieId), soundtrackRepository.findSoundtrack(title)).then((responses) => {
                 console.log('[TachanService] Responses: ', responses)
             });
         }

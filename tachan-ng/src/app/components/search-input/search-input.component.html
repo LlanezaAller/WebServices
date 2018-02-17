@@ -1,5 +1,5 @@
 <label class="search-input">
-  <span *ngIf="true" class="search-input__spinner ion-load-c"></span>
+  <span *ngIf="searching" class="search-input__spinner ion-load-c"></span>
   <input autofocus type="text" class="search-input__input" [formControl]="searchInput" placeholder="Search for movies..."/>
   <span class="search-input__icon ion-ios-search"></span>
 </label>
