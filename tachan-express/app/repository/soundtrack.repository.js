@@ -1,16 +1,16 @@
 module.exports = (app) => {
-    const rootUri = app.get('music-api-endpoint');
-    const httpClient = new(require('node-rest-client').Client)();
-
+    const util = require('util')
+    const music = () => app.get('music-client');
     return {
-        findSoundtrack(name) {
-            return new Promise((resolve, reject) => {
-                httpClient.get(`${rootUri}/findById`, (data, response) => {
-                    console.log('[SoundTrack.Repository] Find By ID Data', data);
-                    console.log('[SoundTrack.Repository] Find By ID Response', response);
-                    resolve(data);
+        findAlbum(name) {
+            return music()
+                .GetMusicFromAsync({search: name})
+                .then(response => {
+                    const items = response.GetMusicFromResult.albums.Items.Item;
+                    if (!Array.isArray(items)) 
+                        return [items];
+                    return items;
                 });
-            })
         }
     }
 }

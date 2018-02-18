@@ -1,17 +1,24 @@
 module.exports = (app) => {
     const util = require('./_router.util');
     const service = require('../business/tachan.service')(app);
-    const rootPublic = '/search';
+    const rootPublic = '/movie';
 
     const router = {
         search: (req, res) => {
-            const query = req.query.q;
-            console.log("Searching for films with parameters: ", req);
-            if (query && `${query}`.trim().length > 0) {
-                const queryResult = service.searchMovieSoundtrack;
-                res
-                    .status(200)
-                    .send(queryResult)
+            const titleQuery = req.query.title;
+            const idQuery = req.query.id;
+            if (titleQuery && `${titleQuery}`.trim().length > 0) {
+                console.log("Searching for films with title: ", titleQuery);
+                service
+                    .searchMovies(titleQuery)
+                    .then((response) => res.status(200).send(response))
+                    .catch((err) => util.sendError(res, 500, err));
+            } else if (idQuery && `${idQuery}`.trim().length > 0) {
+                console.log("Searching for films with id: ", idQuery);
+                service
+                    .getMovie(idQuery)
+                    .then((response) => res.status(200).send(response))
+                    .catch((err) => util.sendError(res, 500, err));
             } else {
                 util.sendError(res, 400, error("The 'q' parameter is mandatory.", 400));
             }

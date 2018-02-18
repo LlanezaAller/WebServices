@@ -3,20 +3,33 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const mongoClient = require('mongodb').MongoClient;
+const soap = require('soap');
 const jwt = require('jsonwebtoken');
 
 //Configuration
 app.set('port', 8080);
-app.set('music-api-endpoint', 'http://localhost:8081');
-app.set('movies-api-endpoint', 'http://localhost:8082');
+app.set('music-api-endpoint', 'http://localhost:8001/services/MusicRS.svc?wsdl');
+app.set('movies-api-endpoint', 'http://localhost:8002');
 app.set('jwt-secret', '<s4f3tyI$Numb3r0n3Pr10r1ty>');
 
+soap
+    .createClientAsync(app.get('music-api-endpoint'))
+    .then((client) => {
+        console.log("Connected to the music api client successfully.");
+        app.set('music-client', client);
+    })
+    .catch((err) => {
+        console.error("Cannot connect to the music api.")
+        console.error(error);
+        return;
+    });
 mongoClient.connect('mongodb://localhost:27017', (err, client) => {
     if (err) {
         console.error("Cannot connect to the database.")
         console.error(error);
+        return;
     }
-    console.log("Connected to db successfully.");
+    console.log("Connected to the db successfully.");
     app.set('db', client.db('tachan-db'));
 });
 

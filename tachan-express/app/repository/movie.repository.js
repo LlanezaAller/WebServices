@@ -5,18 +5,18 @@ module.exports = (app) => {
     return {
         findById(id) {
             return new Promise((resolve, reject) => {
-                httpClient.get(`${rootUri}/findById`, (data, response) => {
-                    console.log('[Movie.Repository] Find by ID Data', data);
-                    console.log('[Movie.Repository] Find by ID Response', response);
+                console.log(`${rootUri}/movie/id/${id}`);
+                httpClient.get(`${rootUri}/movie/id/${id}`, (data, response) => {
+                    //console.log('[Movie.Repository] Find by ID Data', data);
                     resolve(data);
                 });
             })
         },
         findByTitle(title) {
             return new Promise((resolve, reject) => {
-                httpClient.get(`${rootUri}/findByName`, (data, response) => {
-                    console.log('[Movie.Repository] Find By Name Data', data);
-                    console.log('[Movie.Repository] Find By Name Response', response);
+                console.log(`${rootUri}/movie/name/${title}`);
+                httpClient.get(`${rootUri}/movie/name/${title}`, (data, response) => {
+                    //console.log('[Movie.Repository] Find By Name Data', data);
                     resolve(data);
                 });
             });
