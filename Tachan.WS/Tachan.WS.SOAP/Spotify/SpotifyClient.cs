@@ -15,30 +15,22 @@ namespace Tachan.WS.SOAP.Spotify
 {
     public class SpotifyClient
     {
+        #region Fields
+
         private string token = string.Empty;
+
+        #endregion Fields
+
+        #region Constructors
 
         public SpotifyClient()
         {
             token = GenerateValidToken();
         }
 
-        public dynamic GetAlbum(string album)
-        {
-            var element = Client.CreateClient()
-                .SetMimeType("application/json")
-                .AddAuthorizationHeader("Bearer", token)
-                .HttpGet<SpotifyWrapper>(CreateSpotifyUri(album)).Result;
-            if (element == null)
-            {
-                GenerateValidToken();
-                element = Client.CreateClient()
-                    .SetMimeType("application/json")
-                    .AddAuthorizationHeader("Bearer", token)
-                    .HttpGet<SpotifyWrapper>(CreateSpotifyUri(album)).Result;
-            }
+        #endregion Constructors
 
-            return element;
-        }
+        #region Methods
 
         public string CreateSpotifyUri(string query = null)
         {
@@ -56,9 +48,6 @@ namespace Tachan.WS.SOAP.Spotify
             };
 
             var response = GetAccessToken();
-
-            //var response = Client.CreateClient().SetMimeType("application/json").AddAuthorizationHeader("Basic", WebConfigurationManager.AppSettings["APIKEY"])
-            //    .HttpPost<string>(CreateSpotifyUri(), col).Result;
 
             return response;
         }
@@ -98,5 +87,26 @@ namespace Tachan.WS.SOAP.Spotify
 
             return token.Access_Token;
         }
+
+        public dynamic GetAlbum(string album)
+        {
+            var element = Client.CreateClient()
+                .SetMimeType("application/json")
+                .AddAuthorizationHeader("Bearer", token)
+                .HttpGet<SpotifyWrapper>(CreateSpotifyUri(album)).Result;
+
+            if (element == null)
+            {
+                GenerateValidToken();
+                element = Client.CreateClient()
+                    .SetMimeType("application/json")
+                    .AddAuthorizationHeader("Bearer", token)
+                    .HttpGet<SpotifyWrapper>(CreateSpotifyUri(album)).Result;
+            }
+
+            return element;
+        }
+
+        #endregion Methods
     }
 }

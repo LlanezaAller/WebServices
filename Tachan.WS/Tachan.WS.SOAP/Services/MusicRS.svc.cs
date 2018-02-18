@@ -12,7 +12,13 @@ namespace Tachan.WS.SOAP
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class MusicRS : IMusicRS
     {
+        #region Fields
+
         private Context context;
+
+        #endregion Fields
+
+        #region Methods
 
         public SpotifyWrapper GetMusicFrom(string search)
         {
@@ -20,5 +26,7 @@ namespace Tachan.WS.SOAP
                 context = Context.Instance;
             return context.Client.GetAlbum(search);
         }
+
+        #endregion Methods
     }
 }

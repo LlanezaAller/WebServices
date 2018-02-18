@@ -14,8 +14,12 @@ namespace Tachan.WS.SOAP
     [ServiceContract]
     public interface IMusicRS
     {
+        #region Methods
+
         [OperationContract]
         [WebGet(UriTemplate = "xml/{search}", ResponseFormat = WebMessageFormat.Xml)]
         SpotifyWrapper GetMusicFrom(string search);
+
+        #endregion Methods
     }
 }
