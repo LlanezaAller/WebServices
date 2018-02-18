@@ -1,0 +1,108 @@
+@import '../../shared';
+.movie {
+    background: $c-white;
+    border-radius: 2px;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 10px;
+    &__poster {
+        min-width: 200px;
+        max-width: 30%;
+        max-height: 400px;
+    }
+    &__content {
+        max-width: 70%;
+        padding: 10px;
+    }
+    &__title {}
+    &__id {
+        color: $c-secondary;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    &__year {}
+    &__plot {
+        padding: 10px;
+        text-align: justify;
+    }
+    &__soundtracks {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+        margin-top: 10px;
+        width: 100%;
+        z-index: 0;
+    }
+    &__soundtracks-title {
+        display: block;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    &__soundtrack {
+        color: $c-white;
+        height: 300px;
+        margin: 10px;
+        position: relative;
+        width: 300px;
+        &:after {
+            background: rgba(0, 0, 0, 0.5);
+            content: '';
+            display: block;
+            left: 0;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: -1;
+        }
+    }
+    &__soundtrack-poster {
+        height: 100%;
+        margin-right: 15px;
+        position: absolute;
+        z-index: -2;
+    }
+    &__soundtrack-title {
+        display: block;
+        margin: 10px;
+        text-align: center;
+        height: 100px;
+    }
+    &__soundtrack-id {
+        display: block;
+        margin: 80px 0 30px 0;
+        text-align: center;
+        width: 100%;
+    }
+    &__soundtrack-verified {
+        color: $c-primary;
+        font-size: 60px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    &__soundtrack-id-highlight {
+        color: $c-secondary;
+        font-size: 16px;
+        font-weight: 700;
+    }
+    &__soundtrack-link {
+        border-radius: 20px;
+        background: darken($c-primary, 15%);
+        color: $c-white;
+        display: block;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 40px;
+        height: 40px;
+        margin: 0 15px;
+        padding: 0 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: 0.25s ease-in-out all;
+        &:hover {
+            background: $c-primary;
+        }
+    }
+}

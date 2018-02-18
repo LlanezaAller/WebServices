@@ -8,12 +8,16 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class TachanService {
   readonly apiUrl = environment.tachanApi;
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient : HttpClient) {}
 
-  public search(title: string): Observable < Movie[] > {
+  public search(title : string) : Observable < Movie[] > {
     console.log('[TachanService] Searching for ', title);
-    // return this.httpClient.get < Movie[] > (`${this.apiUrl}/search?q=${title}`);
-    return Observable.of(MOVIES_MOCK.sort((a, b) => Math.random() - 0.5));
+    return this.httpClient.get < Movie[] > (`${this.apiUrl}/movie?title=${title}`);
+    //return Observable.of(MOVIES_MOCK.sort((a, b) => Math.random() - 0.5));
+  }
+
+  public findFullMovie(id : string) : Observable < Movie > {
+    return this.httpClient.get < Movie > (`${this.apiUrl}/movie?id=${id}`);
   }
 
 }

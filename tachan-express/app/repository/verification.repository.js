@@ -6,7 +6,9 @@ module.exports = (app) => {
 
     return {
         find(movieId) {
-            return collection().find({}, {movieId}).toArray();
+            return collection()
+                .find({movieId})
+                .toArray();
         },
         update(id, verification) {
             if (!ObjectId.isValid(id)) 

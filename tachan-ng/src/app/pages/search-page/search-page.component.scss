@@ -1,0 +1,9 @@
+.search-results {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+tcn-movie-result {
+    margin-top: 15px;
+}

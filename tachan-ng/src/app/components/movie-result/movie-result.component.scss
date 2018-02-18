@@ -24,19 +24,24 @@
         position: absolute;
         text-align: center;
         transition: all 0.25s ease-in-out;
+        width: 100%;
         z-index: 2;
     }
     &__header-title {
         color: $c-white;
+        display: block;
         font-size: 26px;
         font-weight: 600;
         text-shadow: 0 2px 5px black;
+        width: 100%;
     }
     &__header-year {
         color: $c-white;
+        display: block;
         font-size: 20px;
         font-weight: 400;
         text-shadow: 0 2px 5px black;
+        width: 100%;
     }
     &:after {
         background: linear-gradient(180deg, transparent, transparentize($c-grey-dark, 0.2));
@@ -57,6 +62,6 @@
         }
     }
     &:hover:after {
-        opacity:0;
+        opacity: 0;
     }
 }

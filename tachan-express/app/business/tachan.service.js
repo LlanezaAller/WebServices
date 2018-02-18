@@ -2,6 +2,7 @@ module.exports = (app) => {
     const camelcaseKeys = require('camelcase-keys');
     const movieRepository = require('../repository/movie.repository')(app);
     const soundtrackRepository = require('../repository/soundtrack.repository')(app);
+    const verificationRepository = require('../repository/verification.repository')(app);
 
     return {
         searchMovies(title) {
@@ -19,12 +20,17 @@ module.exports = (app) => {
                         return {}
                     }
                     movie = camelcaseKeys(movie, {deep: true});
-                    return soundtrackRepository
-                        .findAlbum(movie.title)
-                        .then((albums) => {
-                            movie.recommendedSoundtracks = camelcaseKeys(albums, {deep: true});
-                            return movie;
-                        })
+                    return Promise.all([
+                        soundtrackRepository.findAlbum(movie.title),
+                        verificationRepository.find(movie.imdbId)
+                    ]).then((response) => {
+                        const albumsResponse = response[0];
+                        const verifiedResponse = response[1];
+
+                        movie.recommendedSoundtracks = camelcaseKeys(albumsResponse, {deep: true});
+                        movie.verifiedSoundtracks = verifiedResponse.map((ver) => ver.albumId);
+                        return movie;
+                    })
                 });
         }
     }

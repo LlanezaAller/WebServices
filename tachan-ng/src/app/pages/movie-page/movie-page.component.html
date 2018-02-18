@@ -1,0 +1,22 @@
+<article class="movie" *ngIf="movie">
+  <img [src]="movie.poster" class="movie__poster" />
+  <main class="movie__content">
+    <h1 class="movie__title">{{movie.title}} (ID:
+      <span class="movie__id">{{movie.imdbId}}</span>)</h1>
+    <span class="movie__year">Year: {{movie.year}}</span>
+    <p class="movie__plot">{{movie.plot}}</p>
+  </main>
+  <section class="movie__soundtracks">
+    <h2 class="movie__soundtracks-title">Recommended soundtracks</h2>
+    <article *ngFor="let st of movie.recommendedSoundtracks" class="movie__soundtrack">
+      <img [src]="st.images.image[0].url" class="movie__soundtrack-poster" />
+      <div>
+        <h3 class="movie__soundtrack-title">{{st.name}}</h3>
+        <span *ngIf="movie.verifiedSoundtracks.includes(st.id)" class="movie__soundtrack-verified ion-ios-checkmark-outline" title="This soundtrack has been verified by the administrators."></span>
+        <span class="movie__soundtrack-id">(ID:
+          <span class="movie__soundtrack-id-highlight">{{st.id}}</span>)</span>
+        <a [href]="st.uri | sanitize" class="movie__soundtrack-link">Open in Spotify</a>
+      </div>
+    </article>
+  </section>
+</article>
