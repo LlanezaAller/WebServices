@@ -7,7 +7,7 @@ import {Movie} from '../../model/movie.model';
 export class MoviePageComponent implements OnInit,
 OnDestroy {
   private routeSub : any;
-  private movie : Movie;
+  movie : Movie;
   constructor(private route : ActivatedRoute, private moviesService : TachanService) {}
 
   ngOnInit() {
