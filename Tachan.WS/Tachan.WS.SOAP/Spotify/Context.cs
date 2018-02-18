@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Tachan.WS.SOAP.Spotify
+﻿namespace Tachan.WS.SOAP.Spotify
 {
     using System;
 

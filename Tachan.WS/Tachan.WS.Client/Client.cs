@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Tachan.WS.Tools
 {
@@ -26,6 +23,20 @@ namespace Tachan.WS.Tools
         public static HttpClient CreateClient()
         {
             return new HttpClient();
+        }
+
+        public static async Task<T> HttpDel<T>(this HttpClient client, string uri)
+        {
+            T result = default(T);
+
+            HttpResponseMessage response = await client.DeleteAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                result = await response.Content.ReadAsAsync<T>();
+            }
+
+            return result;
         }
 
         public static async Task<T> HttpGet<T>(this HttpClient client, string uri)
@@ -67,20 +78,6 @@ namespace Tachan.WS.Tools
             T result = default(T);
 
             HttpResponseMessage response = await client.PutAsJsonAsync(uri, parameters);
-
-            if (response.IsSuccessStatusCode)
-            {
-                result = await response.Content.ReadAsAsync<T>();
-            }
-
-            return result;
-        }
-
-        public static async Task<T> HttpDel<T>(this HttpClient client, string uri)
-        {
-            T result = default(T);
-
-            HttpResponseMessage response = await client.DeleteAsync(uri);
 
             if (response.IsSuccessStatusCode)
             {
